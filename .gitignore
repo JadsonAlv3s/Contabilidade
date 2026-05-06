@@ -1,0 +1,19 @@
+# Dependências
+node_modules/
+
+# Build
+dist/
+.astro/
+
+# Ambiente
+.env
+.env.local
+.env.production
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/settings.json
+*.log

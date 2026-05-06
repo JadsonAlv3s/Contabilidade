@@ -1,0 +1,220 @@
+---
+/**
+ * Footer.astro — Rodapé completo da landing page de Danúbia Carvalho.
+ *
+ * Conteúdo:
+ * - Logo "DG" + nome + tagline
+ * - Links de navegação âncora
+ * - SocialLinks.astro (Instagram, LinkedIn, WhatsApp)
+ * - Widget/link de destaque para Instagram
+ * - Número CRC
+ * - Link para Política de Privacidade
+ * - Botões de compartilhamento (WhatsApp e LinkedIn)
+ * - Copyright
+ *
+ * Requisitos: 10.7, 10.9, 16.1, 16.4, 16.5, 16.6
+ */
+
+import { siteConfig } from '../config/site';
+import SocialLinks from './SocialLinks.astro';
+
+const navLinks = [
+  { href: '#servicos', label: 'Serviços' },
+  { href: '#vantagens', label: 'Vantagens' },
+  { href: '#sobre', label: 'Sobre' },
+  { href: '#depoimentos', label: 'Depoimentos' },
+  { href: '#contato', label: 'Contato' },
+];
+
+const shareTextWhatsApp = `Conheça a Danúbia Carvalho - Consultoria Contábil Estratégica: ${siteConfig.url}`;
+const shareUrlWhatsApp = `https://wa.me/?text=${encodeURIComponent(shareTextWhatsApp)}`;
+const shareUrlLinkedIn = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(siteConfig.url)}`;
+
+const instagramUrl = siteConfig.social.instagram;
+const instagramHandle = '@danubiacarvalho';
+---
+
+<footer
+  role="contentinfo"
+  class="bg-brand-navy text-white"
+>
+  <div class="container-site max-w-site mx-auto px-4 py-12 md:py-16">
+
+    <!-- Grade principal: 3 colunas desktop, 1 coluna mobile -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8 mb-10">
+
+      <!-- Coluna 1: Identidade -->
+      <div class="flex flex-col gap-4">
+        <!-- Logo + Nome + Tagline -->
+        <div class="flex items-center gap-3">
+          <!-- Logo "DG" -->
+          <div
+            class="flex items-center justify-center w-12 h-12 rounded-full bg-white text-brand-navy font-bold text-lg select-none shrink-0"
+            aria-hidden="true"
+          >
+            DG
+          </div>
+          <div>
+            <p class="font-bold text-white text-lg leading-tight">
+              {siteConfig.name}
+            </p>
+            <p class="text-gray-300 text-sm leading-tight">
+              Consultoria Contábil Estratégica
+            </p>
+          </div>
+        </div>
+
+        <!-- Redes sociais -->
+        <SocialLinks class="[&_a]:text-gray-300 [&_a]:hover:text-white [&_a]:hover:bg-white/10" />
+
+        <!-- Destaque Instagram -->
+        {instagramUrl && (
+          <a
+            href={instagramUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Siga Danúbia Carvalho no Instagram ${instagramHandle}`}
+            class="inline-flex items-center gap-2 text-sm text-gray-300 hover:text-white transition-colors focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
+          >
+            <!-- Ícone Instagram -->
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+            </svg>
+            <span>Siga no Instagram {instagramHandle}</span>
+          </a>
+        )}
+      </div>
+
+      <!-- Coluna 2: Navegação -->
+      <nav aria-label="Links de navegação do rodapé">
+        <p class="font-semibold text-white mb-4 text-sm uppercase tracking-wider">
+          Navegação
+        </p>
+        <ul class="flex flex-col gap-2">
+          {navLinks.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                aria-label={`Ir para a seção ${link.label}`}
+                class="text-gray-300 hover:text-white text-sm transition-colors focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      <!-- Coluna 3: Informações e Compartilhamento -->
+      <div class="flex flex-col gap-5">
+        <!-- Número CRC -->
+        {siteConfig.crc && (
+          <div>
+            <p class="font-semibold text-white mb-1 text-sm uppercase tracking-wider">
+              Registro Profissional
+            </p>
+            <p class="text-gray-300 text-sm">{siteConfig.crc}</p>
+          </div>
+        )}
+
+        <!-- Link Política de Privacidade -->
+        <div>
+          <p class="font-semibold text-white mb-1 text-sm uppercase tracking-wider">
+            Legal
+          </p>
+          <a
+            href="/politica-de-privacidade"
+            aria-label="Leia nossa Política de Privacidade"
+            class="text-gray-300 hover:text-white text-sm transition-colors focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
+          >
+            Política de Privacidade
+          </a>
+        </div>
+
+        <!-- Botões de compartilhamento -->
+        <div>
+          <p class="font-semibold text-white mb-3 text-sm uppercase tracking-wider">
+            Compartilhar
+          </p>
+          <div class="flex flex-row gap-3">
+
+            <!-- Compartilhar via WhatsApp -->
+            <a
+              href={shareUrlWhatsApp}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Compartilhar esta página via WhatsApp"
+              onclick="if(window.trackEvent) window.trackEvent('share_click', {platform: 'whatsapp'})"
+              class="inline-flex items-center gap-2 px-4 py-2 min-h-[44px] rounded-md bg-green-600 hover:bg-green-700 text-white text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
+            >
+              <!-- Ícone WhatsApp -->
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z" />
+              </svg>
+              WhatsApp
+            </a>
+
+            <!-- Compartilhar via LinkedIn -->
+            <a
+              href={shareUrlLinkedIn}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Compartilhar esta página no LinkedIn"
+              onclick="if(window.trackEvent) window.trackEvent('share_click', {platform: 'linkedin'})"
+              class="inline-flex items-center gap-2 px-4 py-2 min-h-[44px] rounded-md bg-blue-700 hover:bg-blue-800 text-white text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
+            >
+              <!-- Ícone LinkedIn -->
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                <rect x="2" y="9" width="4" height="12" />
+                <circle cx="4" cy="4" r="2" />
+              </svg>
+              LinkedIn
+            </a>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Divisor -->
+    <div class="border-t border-white/15 pt-6">
+      <p class="text-center text-gray-400 text-sm">
+        © 2025 {siteConfig.name}. Todos os direitos reservados.
+      </p>
+    </div>
+
+  </div>
+</footer>

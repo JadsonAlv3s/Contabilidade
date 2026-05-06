@@ -1,0 +1,113 @@
+---
+/**
+ * Benefits.astro — Seção de vantagens da terceirização contábil
+ *
+ * - id="vantagens"
+ * - H2: "Por que terceirizar o departamento contábil?"
+ * - 5 itens com ícone SVG colorido (brand.green), título H3 e descrição
+ * - Layout: lista vertical mobile; grid 2 colunas desktop
+ *
+ * Requisitos: 4.1, 4.2, 4.3, 9.3
+ */
+
+interface Benefit {
+  title: string;
+  description: string;
+  icon: string; // SVG path data
+}
+
+const benefits: Benefit[] = [
+  {
+    title: 'Redução de custos com pessoal',
+    description:
+      'Elimine gastos com encargos trabalhistas, benefícios, treinamentos e infraestrutura de um departamento contábil interno. Pague apenas pelo serviço que utiliza.',
+    icon: 'M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6',
+  },
+  {
+    title: 'Profissionais altamente especializados',
+    description:
+      'Acesso a uma equipe com formação técnica avançada, atualizada com as constantes mudanças na legislação tributária e nas normas contábeis brasileiras.',
+    icon: 'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z',
+  },
+  {
+    title: 'Maior foco na atração de clientes',
+    description:
+      'Libere sua equipe das demandas operacionais contábeis para concentrar esforços no crescimento do negócio, vendas e relacionamento com clientes.',
+    icon: 'M22 12h-4l-3 9L9 3l-3 9H2',
+  },
+  {
+    title: 'Consultoria estratégica e personalizada',
+    description:
+      'Além da execução contábil, receba análises e orientações estratégicas adaptadas à realidade do seu negócio, apoiando decisões financeiras mais assertivas.',
+    icon: 'M9 19v-6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2zm0 0V9a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v10m-6 0a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2m0 0V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2z',
+  },
+  {
+    title: 'Elaboração de balanços para licitações',
+    description:
+      'Suporte especializado na preparação de documentação contábil exigida em processos licitatórios, aumentando as chances de habilitação e sucesso nas licitações.',
+    icon: 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z',
+  },
+];
+---
+
+<section
+  id="vantagens"
+  class="bg-white py-16 md:py-24"
+  aria-labelledby="benefits-heading"
+>
+  <div class="container-site">
+
+    <!-- Cabeçalho da seção -->
+    <div class="text-center mb-12 md:mb-16">
+      <h2
+        id="benefits-heading"
+        class="text-3xl md:text-4xl font-bold text-brand-navy mb-4"
+      >
+        Por que terceirizar o departamento contábil?
+      </h2>
+      <p class="text-gray-600 text-base md:text-lg max-w-2xl mx-auto">
+        Descubra como a terceirização contábil pode transformar a gestão
+        financeira do seu negócio.
+      </p>
+    </div>
+
+    <!-- Lista de vantagens -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-4xl mx-auto">
+      {benefits.map((benefit, index) => (
+        <div class="flex gap-4 items-start">
+
+          <!-- Ícone -->
+          <div
+            class="flex items-center justify-center w-12 h-12 rounded-full bg-brand-green/10 text-brand-green flex-shrink-0 mt-0.5"
+            aria-hidden="true"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d={benefit.icon} />
+            </svg>
+          </div>
+
+          <!-- Conteúdo -->
+          <div>
+            <h3 class="text-base font-semibold text-brand-navy mb-1.5 leading-snug">
+              {benefit.title}
+            </h3>
+            <p class="text-sm text-gray-600 leading-relaxed">
+              {benefit.description}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

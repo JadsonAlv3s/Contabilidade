@@ -1,0 +1,171 @@
+---
+/**
+ * BaseLayout.astro — Layout base da landing page de Danúbia Carvalho
+ *
+ * Responsável por:
+ * - Estrutura HTML semântica com lang="pt-BR"
+ * - <head> completo: title, meta description, canonical, OG, Twitter Card
+ * - JSON-LD Schema_Person e Schema_LocalBusiness (AccountingService)
+ * - Preload de fonte Inter e imagem hero
+ * - Importação do global.css
+ * - Slot para conteúdo da página
+ * - Slot para scripts no final do body
+ *
+ * Requisitos: 7.1, 7.2, 7.3, 7.4, 7.5, 7.6, 7.7, 7.9, 7.10, 7.11,
+ *             8.7, 8.8, 9.3, 10.1, 10.2, 10.3, 10.4, 10.5, 16.7, 16.9
+ */
+
+import { siteConfig } from '../config/site';
+import '../styles/global.css';
+import ConsentBanner from '../components/ConsentBanner';
+
+export interface Props {
+  /** Título da página — padrão: siteConfig.title (≤ 60 chars) */
+  title?: string;
+  /** Meta description — padrão: siteConfig.description (120–160 chars) */
+  description?: string;
+  /** URL canônica — padrão: siteConfig.url */
+  canonicalUrl?: string;
+  /** Caminho da imagem OG (1200×630px) — padrão: siteConfig.ogImage */
+  ogImage?: string;
+}
+
+const {
+  title = siteConfig.title,
+  description = siteConfig.description,
+  canonicalUrl = siteConfig.url,
+  ogImage = siteConfig.ogImage,
+} = Astro.props;
+
+const ogImageAbsolute = ogImage.startsWith('http')
+  ? ogImage
+  : `${siteConfig.url}${ogImage}`;
+
+// JSON-LD Schema_Person (Requisitos 7.5, 16.9)
+const schemaPerson = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: siteConfig.name,
+  jobTitle: 'Consultora Contábil Estratégica',
+  url: siteConfig.url,
+  description: siteConfig.description,
+  sameAs: [
+    siteConfig.social.instagram,
+    siteConfig.social.linkedin,
+  ],
+};
+
+// JSON-LD Schema_LocalBusiness — subtipo AccountingService (Requisito 7.6)
+const schemaLocalBusiness = {
+  '@context': 'https://schema.org',
+  '@type': 'AccountingService',
+  name: `${siteConfig.name} Consultoria Contábil`,
+  description: siteConfig.description,
+  url: siteConfig.url,
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: '5',
+    reviewCount: '3',
+  },
+};
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+
+    <!-- Viewport (Requisito 1.4) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Título (Requisito 7.1 — ≤ 60 chars) -->
+    <title>{title}</title>
+
+    <!-- Meta description (Requisito 7.2 — 120–160 chars) -->
+    <meta name="description" content={description} />
+
+    <!-- Canonical (Requisito 7.9) -->
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- ============================================================
+         Open Graph (Requisito 7.3, 16.7)
+         ============================================================ -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageAbsolute} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content={siteConfig.name} />
+
+    <!-- ============================================================
+         Twitter Card (Requisito 7.4)
+         ============================================================ -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageAbsolute} />
+
+    <!-- ============================================================
+         Preload — Fonte Inter e imagem hero (Requisito 8.8)
+         ============================================================ -->
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    />
+    <!-- Preload da imagem hero (substituir pelo caminho real quando disponível) -->
+    <link
+      rel="preload"
+      as="image"
+      href="/images/danubia-foto.webp"
+      type="image/webp"
+    />
+
+    <!-- ============================================================
+         JSON-LD — Schema_Person (Requisitos 7.5, 16.9)
+         ============================================================ -->
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(schemaPerson)}
+    />
+
+    <!-- ============================================================
+         JSON-LD — Schema_LocalBusiness / AccountingService (Requisito 7.6)
+         ============================================================ -->
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(schemaLocalBusiness)}
+    />
+  </head>
+
+  <body>
+    <!-- Conteúdo da página -->
+    <slot />
+
+    <!-- Banner de consentimento de cookies (Requisitos 10.10, 10.11, 11.1) -->
+    <ConsentBanner client:load />
+
+    <!-- Scripts no final do body -->
+    <slot name="scripts" />
+  </body>
+</html>

@@ -1,0 +1,249 @@
+---
+/**
+ * Header.astro — Cabeçalho da landing page
+ *
+ * - Logo "DG" com asas (SVG inline)
+ * - Nome "Danúbia Carvalho" ao lado do logo
+ * - Links de navegação âncora
+ * - SocialLinks no lado direito
+ * - Menu hambúrguer responsivo em mobile
+ * - Sticky no topo com z-index 50
+ *
+ * Requisitos: 1.1, 1.4, 1.5, 9.2, 9.3, 16.1
+ */
+
+import SocialLinks from './SocialLinks.astro';
+---
+
+<header
+  class="sticky top-0 z-50 bg-white shadow-sm border-b border-gray-100"
+  role="banner"
+>
+  <div class="container-site">
+    <div class="flex items-center justify-between h-16 md:h-20">
+
+      <!-- Logo + Nome -->
+      <a
+        href="#"
+        class="flex items-center gap-3 min-h-[44px] min-w-[44px] hover:opacity-80 transition-opacity"
+        aria-label="Danúbia Carvalho Consultoria Contábil — Ir para o início"
+      >
+        <!-- Logo DG com asas (SVG inline) -->
+        <svg
+          width="48"
+          height="48"
+          viewBox="0 0 48 48"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+          class="flex-shrink-0"
+        >
+          <!-- Asa esquerda -->
+          <path
+            d="M4 24 C4 16, 12 10, 18 14 C14 16, 12 20, 14 24 C12 22, 8 22, 4 24Z"
+            fill="#2D5A3D"
+            opacity="0.85"
+          />
+          <!-- Asa direita -->
+          <path
+            d="M44 24 C44 16, 36 10, 30 14 C34 16, 36 20, 34 24 C36 22, 40 22, 44 24Z"
+            fill="#2D5A3D"
+            opacity="0.85"
+          />
+          <!-- Círculo de fundo -->
+          <circle cx="24" cy="24" r="14" fill="#1A2A5E" />
+          <!-- Letras DG -->
+          <text
+            x="24"
+            y="29"
+            text-anchor="middle"
+            font-family="Inter, system-ui, sans-serif"
+            font-size="13"
+            font-weight="700"
+            fill="#FFFFFF"
+            letter-spacing="-0.5"
+          >DG</text>
+        </svg>
+
+        <span class="font-semibold text-brand-navy text-base md:text-lg leading-tight hidden sm:block">
+          Danúbia Carvalho
+        </span>
+      </a>
+
+      <!-- Navegação desktop -->
+      <nav
+        id="main-nav"
+        aria-label="Navegação principal"
+        class="hidden md:flex items-center gap-1"
+      >
+        <a
+          href="#servicos"
+          class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-brand-navy hover:bg-brand-gray rounded-md transition-colors min-h-[44px] flex items-center"
+        >
+          Serviços
+        </a>
+        <a
+          href="#vantagens"
+          class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-brand-navy hover:bg-brand-gray rounded-md transition-colors min-h-[44px] flex items-center"
+        >
+          Vantagens
+        </a>
+        <a
+          href="#sobre"
+          class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-brand-navy hover:bg-brand-gray rounded-md transition-colors min-h-[44px] flex items-center"
+        >
+          Sobre
+        </a>
+        <a
+          href="#depoimentos"
+          class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-brand-navy hover:bg-brand-gray rounded-md transition-colors min-h-[44px] flex items-center"
+        >
+          Depoimentos
+        </a>
+        <a
+          href="#contato"
+          class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-brand-navy hover:bg-brand-gray rounded-md transition-colors min-h-[44px] flex items-center"
+        >
+          Contato
+        </a>
+      </nav>
+
+      <!-- Social links + hambúrguer -->
+      <div class="flex items-center gap-2">
+        <!-- Social links (visível em desktop) -->
+        <SocialLinks class="hidden md:flex" />
+
+        <!-- Botão hambúrguer (visível em mobile) -->
+        <button
+          id="menu-toggle"
+          type="button"
+          aria-label="Abrir menu de navegação"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+          class="md:hidden flex items-center justify-center w-11 h-11 rounded-md text-brand-navy hover:bg-brand-gray transition-colors"
+        >
+          <!-- Ícone hambúrguer -->
+          <svg
+            id="icon-menu"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+          <!-- Ícone fechar (oculto por padrão) -->
+          <svg
+            id="icon-close"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            class="hidden"
+          >
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Menu mobile -->
+  <nav
+    id="mobile-menu"
+    class="hidden md:hidden border-t border-gray-100 bg-white"
+    aria-label="Menu mobile"
+  >
+    <div class="container-site py-4 flex flex-col gap-1">
+      <a
+        href="#servicos"
+        class="px-4 py-3 text-sm font-medium text-gray-700 hover:text-brand-navy hover:bg-brand-gray rounded-md transition-colors min-h-[44px] flex items-center"
+      >
+        Serviços
+      </a>
+      <a
+        href="#vantagens"
+        class="px-4 py-3 text-sm font-medium text-gray-700 hover:text-brand-navy hover:bg-brand-gray rounded-md transition-colors min-h-[44px] flex items-center"
+      >
+        Vantagens
+      </a>
+      <a
+        href="#sobre"
+        class="px-4 py-3 text-sm font-medium text-gray-700 hover:text-brand-navy hover:bg-brand-gray rounded-md transition-colors min-h-[44px] flex items-center"
+      >
+        Sobre
+      </a>
+      <a
+        href="#depoimentos"
+        class="px-4 py-3 text-sm font-medium text-gray-700 hover:text-brand-navy hover:bg-brand-gray rounded-md transition-colors min-h-[44px] flex items-center"
+      >
+        Depoimentos
+      </a>
+      <a
+        href="#contato"
+        class="px-4 py-3 text-sm font-medium text-gray-700 hover:text-brand-navy hover:bg-brand-gray rounded-md transition-colors min-h-[44px] flex items-center"
+      >
+        Contato
+      </a>
+      <!-- Social links no menu mobile -->
+      <div class="pt-3 border-t border-gray-100 mt-2">
+        <SocialLinks />
+      </div>
+    </div>
+  </nav>
+</header>
+
+<script>
+  // Menu hambúrguer — toggle mobile
+  const toggle = document.getElementById('menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  const iconMenu = document.getElementById('icon-menu');
+  const iconClose = document.getElementById('icon-close');
+
+  if (toggle && menu && iconMenu && iconClose) {
+    toggle.addEventListener('click', () => {
+      const isOpen = menu.classList.contains('hidden');
+
+      if (isOpen) {
+        menu.classList.remove('hidden');
+        toggle.setAttribute('aria-expanded', 'true');
+        toggle.setAttribute('aria-label', 'Fechar menu de navegação');
+        iconMenu.classList.add('hidden');
+        iconClose.classList.remove('hidden');
+      } else {
+        menu.classList.add('hidden');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-label', 'Abrir menu de navegação');
+        iconMenu.classList.remove('hidden');
+        iconClose.classList.add('hidden');
+      }
+    });
+
+    // Fechar menu ao clicar em um link
+    const mobileLinks = menu.querySelectorAll('a');
+    mobileLinks.forEach((link) => {
+      link.addEventListener('click', () => {
+        menu.classList.add('hidden');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-label', 'Abrir menu de navegação');
+        iconMenu.classList.remove('hidden');
+        iconClose.classList.add('hidden');
+      });
+    });
+  }
+</script>

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <!-- Fundo brand.navy -->
+  <rect width="1200" height="630" fill="#1A2A5E"/>
+
+  <!-- Linha decorativa superior -->
+  <rect x="0" y="0" width="1200" height="6" fill="#2D5A3D"/>
+
+  <!-- Linha decorativa inferior -->
+  <rect x="0" y="624" width="1200" height="6" fill="#2D5A3D"/>
+
+  <!-- Ícone DG (placeholder do logo) -->
+  <rect x="80" y="220" width="80" height="80" rx="12" fill="#2D5A3D"/>
+  <text x="120" y="274" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="36" font-weight="700" fill="#FFFFFF">DG</text>
+
+  <!-- Título principal -->
+  <text x="600" y="270" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="52" font-weight="700" fill="#FFFFFF">Danúbia Carvalho</text>
+
+  <!-- Subtítulo -->
+  <text x="600" y="340" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="32" font-weight="400" fill="#F5F5F5">Consultoria Contábil Estratégica</text>
+
+  <!-- Separador -->
+  <rect x="480" y="375" width="240" height="2" fill="#2D5A3D"/>
+
+  <!-- URL do site -->
+  <text x="600" y="420" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="22" font-weight="400" fill="#F5F5F5" opacity="0.8">danubiacarvalho.com.br</text>
+</svg>

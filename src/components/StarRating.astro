@@ -1,0 +1,50 @@
+---
+/**
+ * StarRating.astro — Componente de avaliação por estrelas
+ *
+ * - Aceita prop `rating: number` (1–5)
+ * - Clamp automático para garantir 1 ≤ rating ≤ 5
+ * - Renderiza 5 estrelas SVG: preenchidas até `rating`, vazias depois
+ * - aria-label="Avaliação: {rating} de 5 estrelas" no container
+ * - Ícones com aria-hidden="true"
+ * - Estrelas preenchidas: amarelo/dourado (#F59E0B)
+ * - Estrelas vazias: cinza (#D1D5DB)
+ *
+ * Requisitos: 15.2, 15.3
+ */
+
+interface Props {
+  rating: number;
+}
+
+const { rating: rawRating } = Astro.props;
+
+// Clamp: garante 1 ≤ rating ≤ 5 (P8 — Invariante de Avaliação de Depoimentos)
+const rating = Math.min(5, Math.max(1, Math.round(rawRating)));
+
+const stars = Array.from({ length: 5 }, (_, i) => i + 1);
+---
+
+<!-- P9 — Invariante de Acessibilidade das Estrelas: aria-label="Avaliação: {rating} de 5 estrelas" -->
+<div
+  class="flex items-center gap-0.5"
+  aria-label={`Avaliação: ${rating} de 5 estrelas`}
+  role="img"
+>
+  {stars.map((star) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill={star <= rating ? '#F59E0B' : 'none'}
+      stroke={star <= rating ? '#F59E0B' : '#D1D5DB'}
+      stroke-width="1.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+    </svg>
+  ))}
+</div>

@@ -1,0 +1,229 @@
+---
+/**
+ * Testimonials.astro — Seção de depoimentos de clientes
+ *
+ * - id="depoimentos", fundo brand.gray
+ * - H2: "O que nossos clientes dizem"
+ * - 3 depoimentos placeholder (substituíveis via comentário TODO)
+ * - Avatar com iniciais em círculo brand.navy
+ * - StarRating component para avaliação
+ * - Truncamento de texto > 200 chars com "Ler mais" (JavaScript inline)
+ * - Layout: 1 coluna (mobile) → 3 colunas (desktop)
+ * - JSON-LD Schema.org/Review + AggregateRating
+ *
+ * Requisitos: 15.1, 15.2, 15.4, 15.5, 15.6, 15.7, 15.8, 15.9, 10.8
+ */
+
+import StarRating from './StarRating.astro';
+
+interface Testimonial {
+  id: string;
+  name: string;
+  company: string;
+  rating: number;
+  text: string;
+  initials: string;
+}
+
+// TODO: Substituir por depoimentos reais
+const testimonials: Testimonial[] = [
+  {
+    id: 'testimonial-1',
+    name: 'Carlos Eduardo Silva',
+    company: 'Distribuidora Silva & Filhos',
+    rating: 5,
+    text: 'A Danúbia transformou completamente a gestão contábil da nossa empresa. Com a terceirização do departamento, reduzimos custos em 30% e passamos a ter relatórios muito mais precisos. Recomendo fortemente para qualquer empresa que queira profissionalizar sua contabilidade.',
+    initials: 'CS',
+  },
+  {
+    id: 'testimonial-2',
+    name: 'Ana Paula Rodrigues',
+    company: 'Clínica Saúde Plena',
+    rating: 5,
+    text: 'Profissional excepcional! O MBA em Direito Tributário faz toda a diferença na qualidade das orientações. Conseguimos regularizar todas as pendências fiscais e hoje operamos com total tranquilidade. O atendimento é personalizado e sempre pontual.',
+    initials: 'AR',
+  },
+  {
+    id: 'testimonial-3',
+    name: 'Roberto Mendes',
+    company: 'Tech Solutions LTDA',
+    rating: 5,
+    text: 'Contratamos a Danúbia para elaborar os balanços para uma licitação importante e o resultado foi impecável. Fomos habilitados sem nenhuma ressalva. Além disso, o treinamento que ela ministrou para nossa equipe foi excelente.',
+    initials: 'RM',
+  },
+];
+
+// Calcula a avaliação agregada
+const totalRating = testimonials.reduce((sum, t) => sum + t.rating, 0);
+const averageRating = totalRating / testimonials.length;
+
+// JSON-LD para Schema.org/Review e AggregateRating
+const reviewsJsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    ...testimonials.map((t) => ({
+      '@type': 'Review',
+      author: {
+        '@type': 'Person',
+        name: t.name,
+      },
+      reviewBody: t.text,
+      reviewRating: {
+        '@type': 'Rating',
+        ratingValue: String(t.rating),
+        bestRating: '5',
+        worstRating: '1',
+      },
+      itemReviewed: {
+        '@type': 'AccountingService',
+        name: 'Danúbia Carvalho Consultoria Contábil',
+      },
+    })),
+    {
+      '@type': 'AggregateRating',
+      itemReviewed: {
+        '@type': 'AccountingService',
+        name: 'Danúbia Carvalho Consultoria Contábil',
+      },
+      ratingValue: String(averageRating),
+      bestRating: '5',
+      worstRating: '1',
+      reviewCount: String(testimonials.length),
+    },
+  ],
+};
+
+const TRUNCATE_LIMIT = 200;
+---
+
+<section
+  id="depoimentos"
+  class="bg-brand-gray py-16 md:py-24"
+  aria-labelledby="testimonials-heading"
+>
+  <div class="container-site">
+
+    <!-- Cabeçalho da seção -->
+    <div class="text-center mb-12 md:mb-16">
+      <h2
+        id="testimonials-heading"
+        class="text-3xl md:text-4xl font-bold text-brand-navy mb-4"
+      >
+        O que nossos clientes dizem
+      </h2>
+      <p class="text-gray-600 text-base md:text-lg max-w-2xl mx-auto">
+        Resultados reais de empresas que transformaram sua gestão contábil com a
+        Danúbia Carvalho.
+      </p>
+    </div>
+
+    <!-- Grid de depoimentos: 1 col (mobile) → 3 cols (desktop) -->
+    <!-- TODO: Substituir por depoimentos reais -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
+      {testimonials.map((testimonial) => {
+        const isLong = testimonial.text.length > TRUNCATE_LIMIT;
+        const truncatedText = isLong
+          ? testimonial.text.slice(0, TRUNCATE_LIMIT).trimEnd() + '...'
+          : testimonial.text;
+
+        return (
+          <article
+            id={testimonial.id}
+            class="bg-white rounded-xl border border-gray-200 p-6 shadow-sm flex flex-col gap-4"
+          >
+            <!-- Cabeçalho do depoimento: avatar + nome + empresa -->
+            <div class="flex items-center gap-4">
+              <!-- Avatar com iniciais — círculo brand.navy -->
+              <div
+                class="flex-shrink-0 w-12 h-12 rounded-full bg-brand-navy flex items-center justify-center"
+                aria-hidden="true"
+              >
+                <span class="text-white font-bold text-sm select-none">
+                  {testimonial.initials}
+                </span>
+              </div>
+
+              <div>
+                <!-- Nome do cliente -->
+                <h3 class="text-base font-semibold text-brand-navy leading-tight">
+                  {testimonial.name}
+                </h3>
+                <!-- Empresa/segmento -->
+                <p class="text-sm text-gray-500 leading-tight mt-0.5">
+                  {testimonial.company}
+                </p>
+              </div>
+            </div>
+
+            <!-- Avaliação por estrelas -->
+            <StarRating rating={testimonial.rating} />
+
+            <!-- Texto do depoimento com truncamento -->
+            <div class="flex-1">
+              {isLong ? (
+                <div data-testimonial-id={testimonial.id}>
+                  <p
+                    class="text-gray-700 text-sm leading-relaxed"
+                    data-full-text={testimonial.text}
+                    data-truncated-text={truncatedText}
+                  >
+                    {truncatedText}
+                  </p>
+                  <button
+                    type="button"
+                    class="mt-2 text-brand-navy text-sm font-semibold hover:underline focus-visible:outline-2 focus-visible:outline-brand-navy focus-visible:outline-offset-2 rounded min-h-[44px] min-w-[44px] px-0"
+                    aria-expanded="false"
+                    aria-controls={`${testimonial.id}-text`}
+                    data-expand-btn
+                  >
+                    Ler mais
+                  </button>
+                </div>
+              ) : (
+                <p class="text-gray-700 text-sm leading-relaxed">
+                  {testimonial.text}
+                </p>
+              )}
+            </div>
+          </article>
+        );
+      })}
+    </div>
+  </div>
+</section>
+
+<!-- JSON-LD: Schema.org/Review + AggregateRating (Requisito 15.8) -->
+<script type="application/ld+json" set:html={JSON.stringify(reviewsJsonLd)} />
+
+<!-- JavaScript inline para expandir/colapsar depoimentos (Requisito 15.7) -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const expandButtons = document.querySelectorAll<HTMLButtonElement>('[data-expand-btn]');
+
+    expandButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const container = btn.closest('[data-testimonial-id]');
+        if (!container) return;
+
+        const textEl = container.querySelector<HTMLParagraphElement>('p[data-full-text]');
+        if (!textEl) return;
+
+        const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+        const fullText = textEl.dataset.fullText ?? '';
+        const truncatedText = textEl.dataset.truncatedText ?? '';
+
+        if (isExpanded) {
+          // Colapsar
+          textEl.textContent = truncatedText;
+          btn.textContent = 'Ler mais';
+          btn.setAttribute('aria-expanded', 'false');
+        } else {
+          // Expandir
+          textEl.textContent = fullText;
+          btn.textContent = 'Ler menos';
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+  });
+</script>

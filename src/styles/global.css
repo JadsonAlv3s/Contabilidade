@@ -1,0 +1,164 @@
+/* ============================================================
+   Global CSS — Danúbia Carvalho Landing Page
+   ============================================================ */
+
+/* Importação da fonte Inter via Google Fonts com font-display: swap
+   para evitar bloqueio de renderização (Requisito 8.8) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* Tailwind base, components e utilities */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   Reset e Base
+   ============================================================ */
+
+@layer base {
+  /* Box-sizing universal */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  /* Reset de margens e paddings */
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Scroll suave para âncoras (Requisito 2.4) */
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    font-size: 16px;
+  }
+
+  /* Corpo da página */
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.6;
+    color: #374151;
+    background-color: #ffffff;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Imagens responsivas por padrão */
+  img,
+  picture,
+  video,
+  canvas,
+  svg {
+    display: block;
+    max-width: 100%;
+  }
+
+  /* Herança de fonte para inputs e botões */
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  /* Evitar overflow de texto longo */
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    overflow-wrap: break-word;
+  }
+
+  /* Hierarquia tipográfica (Requisito 1.3) */
+  h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #1A2A5E; /* brand.navy */
+  }
+
+  h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.3;
+    color: #1A2A5E; /* brand.navy */
+  }
+
+  h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.4;
+    color: #1A2A5E; /* brand.navy */
+  }
+
+  /* Links */
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  /* Foco visível para acessibilidade (Requisito 9.2) */
+  :focus-visible {
+    outline: 3px solid #1A2A5E;
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  /* Elementos interativos com tamanho mínimo de toque (Requisito 1.5) */
+  button,
+  [role="button"],
+  a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* ============================================================
+   Utilitários customizados
+   ============================================================ */
+
+@layer utilities {
+  /* Container centralizado com largura máxima */
+  .container-site {
+    width: 100%;
+    max-width: 1440px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .container-site {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container-site {
+      padding-left: 4rem;
+      padding-right: 4rem;
+    }
+  }
+
+  /* Texto truncado com "Ler mais" (Requisito 15.7) */
+  .text-truncate-200 {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}

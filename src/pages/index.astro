@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import Services from '../components/Services.astro';
+import Benefits from '../components/Benefits.astro';
+import About from '../components/About.astro';
+import Testimonials from '../components/Testimonials.astro';
+import ContactForm from '../components/ContactForm';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout>
+  <Header />
+  <main id="main-content">
+    <Hero />
+    <Services />
+    <Benefits />
+    <About />
+    <Testimonials />
+    <ContactForm client:load />
+  </main>
+  <Footer />
+</BaseLayout>

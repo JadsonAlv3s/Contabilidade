@@ -1,0 +1,149 @@
+---
+/**
+ * About.astro — Seção "Sobre Danúbia Carvalho"
+ *
+ * - id="sobre"
+ * - H2: "Sobre Danúbia Carvalho"
+ * - Layout 2 colunas desktop: foto à esquerda, texto à direita
+ * - Foto com <picture> WebP + fallback JPEG, loading="lazy"
+ * - Lista de credenciais com ícone de check (brand.green)
+ * - Regimes tributários atendidos
+ * - CTA: "Vamos transformar a contabilidade do seu negócio!" → #contato
+ *
+ * Requisitos: 5.1, 5.2, 5.3, 5.4, 5.5, 8.5, 9.8
+ */
+
+const credentials = [
+  'Bacharel em Ciências Contábeis',
+  'Especialista em Auditoria e Controladoria',
+  'MBA em Contabilidade, Direito Tributário e Compliance',
+  'Formação em Auditoria Interna pela Cenofisco SP',
+  'Curso de LGPD pela FGV',
+  'Mais de 10 anos de experiência no departamento contábil',
+];
+
+const taxRegimes = [
+  'Lucro Real',
+  'Lucro Presumido',
+  'Simples Nacional',
+  'Entidades Sem Fins Lucrativos',
+];
+---
+
+<section
+  id="sobre"
+  class="bg-brand-gray py-16 md:py-24"
+  aria-labelledby="about-heading"
+>
+  <div class="container-site">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+      <!-- Foto profissional -->
+      <div class="flex justify-center lg:justify-start">
+        <div class="relative">
+          <!-- Elemento decorativo atrás da foto -->
+          <div
+            class="absolute -top-4 -left-4 w-full h-full rounded-2xl bg-brand-navy/10 border-2 border-brand-navy/20"
+            aria-hidden="true"
+          ></div>
+
+          <picture class="relative z-10 block">
+            <img
+              src="/images/danubia-foto.jpg"
+              alt="Danúbia Carvalho, Consultora Contábil Estratégica"
+              loading="lazy"
+              width="480"
+              height="560"
+              class="rounded-2xl shadow-xl object-cover w-full max-w-sm lg:max-w-none aspect-[4/5]"
+            />
+          </picture>
+        </div>
+      </div>
+
+      <!-- Conteúdo textual -->
+      <div>
+        <h2
+          id="about-heading"
+          class="text-3xl md:text-4xl font-bold text-brand-navy mb-6"
+        >
+          Sobre Danúbia Carvalho
+        </h2>
+
+        <!-- Parágrafo de apresentação -->
+        <p class="text-gray-700 leading-relaxed mb-8">
+          Com mais de 10 anos de experiência no departamento contábil, Danúbia
+          Carvalho é especialista em consultoria, assessoria e treinamento
+          contábil. Sua atuação abrange empresas de diferentes portes e regimes
+          tributários, sempre com foco em otimização de processos, conformidade
+          legal e geração de valor estratégico para os clientes.
+        </p>
+
+        <!-- Credenciais -->
+        <div class="mb-8">
+          <h3 class="text-base font-semibold text-brand-navy mb-4 uppercase tracking-wide text-sm">
+            Formação e Credenciais
+          </h3>
+          <ul class="space-y-3" role="list">
+            {credentials.map((credential) => (
+              <li class="flex items-start gap-3">
+                <!-- Ícone de check brand.green -->
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="text-brand-green flex-shrink-0 mt-0.5"
+                  aria-hidden="true"
+                >
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                <span class="text-gray-700 text-sm leading-relaxed">{credential}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Regimes tributários -->
+        <div class="mb-8">
+          <h3 class="text-base font-semibold text-brand-navy mb-3 uppercase tracking-wide text-sm">
+            Regimes Tributários Atendidos
+          </h3>
+          <div class="flex flex-wrap gap-2">
+            {taxRegimes.map((regime) => (
+              <span class="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-brand-navy/10 text-brand-navy border border-brand-navy/20">
+                {regime}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <a
+          href="#contato"
+          class="inline-flex items-center justify-center gap-2 px-8 py-3 min-h-[44px] rounded-lg bg-brand-navy text-white font-semibold text-base hover:bg-brand-navy/90 transition-colors duration-200 shadow-md hover:shadow-lg focus-visible:outline-2 focus-visible:outline-brand-navy focus-visible:outline-offset-2"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+          Vamos transformar a contabilidade do seu negócio!
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

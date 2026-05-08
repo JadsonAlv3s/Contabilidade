@@ -14,12 +14,15 @@ export const siteConfig = {
   social: {
     instagram: "https://instagram.com/danubiacarvalho",
     linkedin: "https://linkedin.com/in/danubiacarvalho",
-    whatsapp: "https://wa.me/5511999999999",
+    whatsapp: "https://wa.me/5581996741683?text=Ol%C3%A1%20Dan%C3%BAbia%2C%20vim%20pelo%20seu%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20seus%20servi%C3%A7os%20de%20consultoria%20cont%C3%A1bil.",
   },
-  /** E-mail de destino para o formulário de contato — definido via variável de ambiente */
-  email: import.meta.env.CONTACT_EMAIL as string | undefined,
-  /** Número de registro no CRC — substituir pelo número real antes do deploy */
-  crc: "CRC-SP 123456/O-1",
+  /** E-mail de contato */
+  email: "dccontabilidadeconsultorias@gmail.com",
+  /** Telefone de contato */
+  phone: "(81) 99674-1683",
+  phoneRaw: "5581996741683",
+  /** Número de registro no CRC */
+  crc: "CRC-PE 034502",
 } as const;
 
 export type SiteConfig = typeof siteConfig;

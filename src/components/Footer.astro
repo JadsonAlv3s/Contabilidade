@@ -47,13 +47,14 @@ const instagramHandle = '@danubiacarvalho';
       <div class="flex flex-col gap-4">
         <!-- Logo + Nome + Tagline -->
         <div class="flex items-center gap-3">
-          <!-- Logo "DG" -->
-          <div
-            class="flex items-center justify-center w-12 h-12 rounded-full bg-white text-brand-navy font-bold text-lg select-none shrink-0"
-            aria-hidden="true"
-          >
-            DG
-          </div>
+          <!-- Logo da cliente -->
+          <img
+            src="/images/logo-danubia.png"
+            alt="Danúbia Carvalho"
+            width="48"
+            height="48"
+            class="w-12 h-12 object-contain rounded-full bg-white p-1 shrink-0"
+          />
           <div>
             <p class="font-bold text-white text-lg leading-tight">
               {siteConfig.name}
@@ -129,6 +130,27 @@ const instagramHandle = '@danubiacarvalho';
             <p class="text-gray-300 text-sm">{siteConfig.crc}</p>
           </div>
         )}
+
+        <!-- Contato -->
+        <div>
+          <p class="font-semibold text-white mb-2 text-sm uppercase tracking-wider">
+            Contato
+          </p>
+          <div class="flex flex-col gap-1.5">
+            <a
+              href={`tel:+${siteConfig.phoneRaw}`}
+              class="text-gray-300 hover:text-white text-sm transition-colors"
+            >
+              📞 {siteConfig.phone}
+            </a>
+            <a
+              href={`mailto:${siteConfig.email}`}
+              class="text-gray-300 hover:text-white text-sm transition-colors break-all"
+            >
+              ✉️ {siteConfig.email}
+            </a>
+          </div>
+        </div>
 
         <!-- Link Política de Privacidade -->
         <div>

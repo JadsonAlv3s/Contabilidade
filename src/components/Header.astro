@@ -28,42 +28,15 @@ import SocialLinks from './SocialLinks.astro';
         class="flex items-center gap-3 min-h-[44px] min-w-[44px] hover:opacity-80 transition-opacity"
         aria-label="Danúbia Carvalho Consultoria Contábil — Ir para o início"
       >
-        <!-- Logo DG com asas (SVG inline) -->
-        <svg
+        <!-- Logo do cliente -->
+        <img
+          src="/images/logo-danubia.png"
+          alt="Danúbia Carvalho - Consultoria Contábil Estratégica"
           width="48"
           height="48"
-          viewBox="0 0 48 48"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          aria-hidden="true"
-          class="flex-shrink-0"
-        >
-          <!-- Asa esquerda -->
-          <path
-            d="M4 24 C4 16, 12 10, 18 14 C14 16, 12 20, 14 24 C12 22, 8 22, 4 24Z"
-            fill="#2D5A3D"
-            opacity="0.85"
-          />
-          <!-- Asa direita -->
-          <path
-            d="M44 24 C44 16, 36 10, 30 14 C34 16, 36 20, 34 24 C36 22, 40 22, 44 24Z"
-            fill="#2D5A3D"
-            opacity="0.85"
-          />
-          <!-- Círculo de fundo -->
-          <circle cx="24" cy="24" r="14" fill="#1A2A5E" />
-          <!-- Letras DG -->
-          <text
-            x="24"
-            y="29"
-            text-anchor="middle"
-            font-family="Inter, system-ui, sans-serif"
-            font-size="13"
-            font-weight="700"
-            fill="#FFFFFF"
-            letter-spacing="-0.5"
-          >DG</text>
-        </svg>
+          loading="eager"
+          class="flex-shrink-0 w-10 h-10 md:w-12 md:h-12 object-contain"
+        />
 
         <span class="font-semibold text-brand-navy text-base md:text-lg leading-tight hidden sm:block">
           Danúbia Carvalho

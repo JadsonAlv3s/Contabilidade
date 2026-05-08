@@ -20,13 +20,6 @@ interface Service {
 
 const services: Service[] = [
   {
-    title: 'Escrituração e Conciliação de Contas',
-    description:
-      'Registro sistemático e preciso de todas as transações financeiras, garantindo a integridade dos dados contábeis e a conformidade com as normas vigentes.',
-    icon: 'M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15zM8 7h8M8 11h8M8 15h5',
-    iconViewBox: '0 0 24 24',
-  },
-  {
     title: 'Conferência de Balancetes e Encerramento de Balanços',
     description:
       'Análise criteriosa de balancetes mensais e condução do processo de encerramento contábil com rigor técnico e atenção aos detalhes.',
@@ -85,9 +78,48 @@ const services: Service[] = [
       </p>
     </div>
 
-    <!-- Grid de cards -->
+    <!-- Grid de cards — layout equilibrado para 5 itens -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-      {services.map((service) => (
+      {services.slice(0, 3).map((service) => (
+        <article class="bg-white rounded-xl border border-gray-200 p-6 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-200 flex flex-col gap-4">
+
+          <!-- Ícone -->
+          <div
+            class="flex items-center justify-center w-12 h-12 rounded-lg bg-brand-navy/10 text-brand-navy flex-shrink-0"
+            aria-hidden="true"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox={service.iconViewBox ?? '0 0 24 24'}
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d={service.icon} />
+            </svg>
+          </div>
+
+          <!-- Conteúdo -->
+          <div>
+            <h3 class="text-base font-semibold text-brand-navy mb-2 leading-snug">
+              {service.title}
+            </h3>
+            <p class="text-sm text-gray-600 leading-relaxed">
+              {service.description}
+            </p>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <!-- Linha inferior centralizada — 2 cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mt-6 md:mt-8 max-w-4xl mx-auto">
+      {services.slice(3).map((service) => (
         <article class="bg-white rounded-xl border border-gray-200 p-6 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-200 flex flex-col gap-4">
 
           <!-- Ícone -->

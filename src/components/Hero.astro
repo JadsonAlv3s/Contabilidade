@@ -41,7 +41,19 @@ const badges = [
   </div>
 
   <div class="container-site relative z-10 py-20 md:py-28 lg:py-36">
-    <div class="max-w-3xl mx-auto md:mx-0 text-center md:text-left">
+    <div class="max-w-3xl mx-auto text-center">
+
+      <!-- Logo -->
+      <img
+        src="/images/logo-danubia.png"
+        alt="Danúbia Carvalho - Consultoria Contábil Estratégica"
+        width="280"
+        height="280"
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+        class="mx-auto mb-8 w-48 h-48 md:w-64 md:h-64 lg:w-72 lg:h-72 object-contain drop-shadow-2xl"
+      />
 
       <!-- H1 — Nome -->
       <h1
@@ -57,14 +69,14 @@ const badges = [
       </p>
 
       <!-- Proposta de valor -->
-      <p class="text-base md:text-lg text-gray-200 leading-relaxed mb-8 max-w-2xl mx-auto md:mx-0">
+      <p class="text-base md:text-lg text-gray-200 leading-relaxed mb-8 max-w-2xl mx-auto">
         Consultoria, Assessoria e Treinamento Contábil para otimizar o seu
         departamento contábil.
       </p>
 
       <!-- Badges de credibilidade -->
       <div
-        class="flex flex-wrap gap-2 justify-center md:justify-start mb-10"
+        class="flex flex-wrap gap-2 justify-center mb-10"
         aria-label="Indicadores de credibilidade"
       >
         {badges.map((badge) => (
@@ -75,7 +87,7 @@ const badges = [
       </div>
 
       <!-- CTAs -->
-      <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
 
         <!-- CTA primário: Fale Comigo -->
         <a

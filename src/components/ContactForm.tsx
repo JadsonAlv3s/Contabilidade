@@ -96,32 +96,28 @@ export default function ContactForm() {
     setErrors({});
     setServerError('');
 
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: serializeForm(data),
-      });
-
-      if (response.ok) {
-        setStatus('success');
-        setFormData(INITIAL_STATE);
-        // Disparar evento de conversão para analytics (Requisito 11.2)
-        if (typeof window !== 'undefined' && (window as any).trackEvent) {
-          (window as any).trackEvent('form_submit');
-        }
-      } else {
-        const body = await response.json().catch(() => ({}));
-        setServerError(
-          (body as { error?: string }).error ||
-            'Ocorreu um erro ao enviar a mensagem.'
-        );
-        setStatus('error');
-      }
-    } catch {
-      setServerError('Não foi possível conectar ao servidor. Tente novamente.');
-      setStatus('error');
+    // Montar mensagem para WhatsApp
+    const whatsappNumber = '5581996741683';
+    let whatsappMessage = `Olá Danúbia! Vim pelo seu site e gostaria de entrar em contato.\n\n`;
+    whatsappMessage += `*Nome:* ${data.name}\n`;
+    whatsappMessage += `*E-mail:* ${data.email}\n`;
+    whatsappMessage += `*Telefone:* ${data.phone}\n`;
+    if (data.company) {
+      whatsappMessage += `*Empresa:* ${data.company}\n`;
     }
+    whatsappMessage += `\n*Mensagem:*\n${data.message}`;
+
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+
+    // Disparar evento de conversão para analytics
+    if (typeof window !== 'undefined' && (window as any).trackEvent) {
+      (window as any).trackEvent('form_submit');
+    }
+
+    // Redirecionar para WhatsApp
+    window.open(whatsappUrl, '_blank');
+    setStatus('success');
+    setFormData(INITIAL_STATE);
   }
 
   // ── Render ────────────────────────────────────────────────────────────────
@@ -144,7 +140,16 @@ export default function ContactForm() {
             aria-live="polite"
             className="mb-6 rounded-lg bg-green-50 border border-green-300 p-4 text-green-800 text-center"
           >
-            Mensagem enviada com sucesso! Entraremos em contato em breve.
+            Redirecionado para o WhatsApp! Caso a janela não tenha aberto,{' '}
+            <a
+              href={siteConfig.social.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline font-semibold"
+            >
+              clique aqui
+            </a>
+            .
           </div>
         )}
 
@@ -478,7 +483,7 @@ export default function ContactForm() {
                 Enviando...
               </span>
             ) : (
-              'Enviar Mensagem'
+              'Enviar via WhatsApp'
             )}
           </button>
 

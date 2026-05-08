@@ -12,7 +12,7 @@ export const siteConfig = {
   url: "https://danubiacarvalho.com.br",
   ogImage: "/images/og-image.jpg",
   social: {
-    instagram: "https://instagram.com/danubiacarvalho",
+    instagram: "https://instagram.com/danubia_carvalhoo",
     linkedin: "https://linkedin.com/in/danubiacarvalho",
     whatsapp: "https://wa.me/5581996741683?text=Ol%C3%A1%20Dan%C3%BAbia%2C%20vim%20pelo%20seu%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20seus%20servi%C3%A7os%20de%20consultoria%20cont%C3%A1bil.",
   },
